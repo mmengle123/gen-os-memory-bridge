@@ -17,6 +17,10 @@ const serviceAccount = process.env.GOOGLE_SERVICE_ACCOUNT_JSON
   ? JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON)
   : undefined;
 
+if (serviceAccount?.private_key) {
+  serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, "\n");
+}
+
 const auth = new google.auth.GoogleAuth({
   credentials: serviceAccount,
   keyFile: serviceAccount ? undefined : "service-account.json",
