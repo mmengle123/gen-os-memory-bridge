@@ -35,6 +35,15 @@ const drive = google.drive({
   auth
 });
 
+app.get("/debug_drive", (req, res) => {
+  res.json({
+    driveDefined: typeof drive !== "undefined",
+    hasServiceAccount: !!serviceAccount,
+    hasPrivateKey: !!serviceAccount?.private_key,
+    hasClientEmail: !!serviceAccount?.client_email
+  });
+});
+
 /* ---------------------------
 HELPERS
 --------------------------- */
