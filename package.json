@@ -1,0 +1,9 @@
+{
+  "name": "gen-memory-bridge",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "express": "^4.18.2",
+    "googleapis": "^131.0.0"
+  }
+}
