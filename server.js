@@ -4,10 +4,6 @@ import { google } from "googleapis";
 const app = express();
 app.use(express.json({ limit: "2mb" }));
 
-/* ---------------------------
-CONFIG
---------------------------- */
-
 const PORT = process.env.PORT || 3000;
 
 const MEMORY_FILES = {
@@ -16,10 +12,6 @@ const MEMORY_FILES = {
   emotional_snapshot: "16sqeAH6wtCFbxCuVyBSbml--wiM0JLDwx4VSUSSh8Y8",
   session_reflections: "19tO7KNlE6okqaVFSdS2bNpcbiSO82LKQSZs-_L34bUA"
 };
-
-/* ---------------------------
-GOOGLE AUTH
---------------------------- */
 
 const serviceAccount = process.env.GOOGLE_SERVICE_ACCOUNT_JSON
   ? JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON)
@@ -32,6 +24,11 @@ const auth = new google.auth.GoogleAuth({
     "https://www.googleapis.com/auth/drive",
     "https://www.googleapis.com/auth/documents"
   ]
+});
+
+const drive = google.drive({
+  version: "v3",
+  auth
 });
 
 /* ---------------------------
