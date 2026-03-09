@@ -35,6 +35,15 @@ const drive = google.drive({
   auth
 });
 
+app.get("/", (req, res) => {
+  res.json({
+    status: "ok",
+    message: "Gen Memory Bridge running",
+    version: "debug-route-build-1",
+    debugRouteExpected: true
+  });
+});
+
 app.get("/debug_drive", (req, res) => {
   res.json({
     driveDefined: typeof drive !== "undefined",
