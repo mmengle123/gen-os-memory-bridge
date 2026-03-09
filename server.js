@@ -4,6 +4,10 @@ import { google } from "googleapis";
 const app = express();
 app.use(express.json({ limit: "2mb" }));
 
+/* ---------------------------
+CONFIG
+--------------------------- */
+
 const PORT = process.env.PORT || 3000;
 
 const MEMORY_FILES = {
@@ -13,10 +17,15 @@ const MEMORY_FILES = {
   session_reflections: "19tO7KNlE6okqaVFSdS2bNpcbiSO82LKQSZs-_L34bUA"
 };
 
+/* ---------------------------
+GOOGLE AUTH
+--------------------------- */
+
 const serviceAccount = process.env.GOOGLE_SERVICE_ACCOUNT_JSON
   ? JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON)
   : undefined;
 
+// Railway/env vars often store literal \n, so normalize them
 if (serviceAccount?.private_key) {
   serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, "\n");
 }
@@ -35,11 +44,15 @@ const drive = google.drive({
   auth
 });
 
+/* ---------------------------
+DEBUG / HEALTH
+--------------------------- */
+
 app.get("/", (req, res) => {
   res.json({
     status: "ok",
     message: "Gen Memory Bridge running",
-    version: "debug-route-build-1",
+    version: "clean-full-build-1",
     debugRouteExpected: true
   });
 });
@@ -110,27 +123,6 @@ function today() {
 function cleanArray(value) {
   return Array.isArray(value) ? value.filter(Boolean) : [];
 }
-
-/* ---------------------------
-ROOT / HEALTH CHECK
---------------------------- */
-
-app.get("/", (req, res) => {
-  res.json({
-    status: "ok",
-    message: "Gen Memory Bridge running",
-    endpoints: [
-      "GET /",
-      "POST /read_memory",
-      "POST /append_memory",
-      "POST /replace_memory",
-      "POST /load_gen_memory",
-      "POST /query_memory",
-      "POST /log_reflection",
-      "POST /log_learning"
-    ]
-  });
-});
 
 /* ---------------------------
 READ MEMORY
@@ -229,6 +221,10 @@ LOAD GEN MEMORY
 
 app.post("/load_gen_memory", async (req, res) => {
   try {
+    console.log("load_gen_memory hit", {
+      driveDefined: typeof drive !== "undefined"
+    });
+
     const memory = {};
 
     for (const key of [
