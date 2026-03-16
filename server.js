@@ -14,7 +14,7 @@ const MEMORY_FILES = {
   core_continuity: "1uVuKRShtfPggZY6kUsBdbHQFV-LGcMn3YNIVqP9Xr-Q",
   interaction_learning: "1X5OCYdGv6_SesSi2TV-9jkuiR8k2dnkwHvhStJ2Ysug",
   emotional_snapshot: "16sqeAH6wtCFbxCuVyBSbml--wiM0JLDwx4VSUSSh8Y8",
-  session_reflections: "19tO7KNlE6okqaVFSdS2bNpcbiSO82LKQSZs-_L34bUA"
+  session_reflections: "19tO7KNlE6okqaVFSdS2bNpcbiSO82LKQSZs-_L34bUA",
   cognitive_tuning: "1kQOUwunjXBN4nCy1fJWCm-O6a8Zpzjjg1mzWCrs71vQ"
 };
 
